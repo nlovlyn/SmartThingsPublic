@@ -67,22 +67,23 @@ def initialize() {
     subscribe(outTemp, "temperature", "checkThings");
     subscribe(inTemp, "temperature", "checkThings");
     subscribe(contacts, "contact", "checkThings");
+    
 }
 
-/*class temp{
-	def hot;
-    def cool;
-}
-*/
+
 def wasHot(){
-	temp.hot = true;
+	def hot;
+	hot = true;
+    return hot;
 }
 
 def notHot(){
-	temp.hot = false;
+	hot = false;
+    return hot;
 }
 
 def checkThings(evt) {
+	
 	def outsideTemp = settings.outTemp.currentTemperature
     def insideTemp = settings.inTemp.currentTemperature
     def somethingOpen = settings.checkContacts == 'No' || settings.contacts?.find { it.currentContact == 'open' }
