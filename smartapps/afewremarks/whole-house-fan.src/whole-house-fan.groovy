@@ -64,15 +64,22 @@ def updated() {
 def initialize() {
 	state.fanRunning = false;
     
+    //state.hot = false;
+    
     subscribe(outTemp, "temperature", "checkThings");
     subscribe(inTemp, "temperature", "checkThings");
     subscribe(contacts, "contact", "checkThings");
     
 }
 
+def inthot(){
+	//hot = state.hot;
+    hot = false;
+    
+}
 
 def wasHot(){
-	def hot;
+	
 	hot = true;
     return hot;
 }
@@ -92,13 +99,13 @@ def checkThings(evt) {
     
     def shouldRun;
     def tempDiff = insideTemp - outsideTemp;
-    
+    inthot()
     if(tempDiff > settings.minTemp){
     shouldRun = true;
     log.debug "It's Hot"
     wasHot()
     }
-    else if(tempDiff < settings.offTemp && temp.hot) {
+    else if(tempDiff < settings.offTemp && hot) {
     shouldRun = true;
     log.debug "Cooling down"
     }
@@ -107,6 +114,7 @@ def checkThings(evt) {
     notHot()
     log.debug "It's Cool"
     }
+   // state.hot = hot;
 /*    
     def shouldRun = true;
     
